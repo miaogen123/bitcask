@@ -1,24 +1,51 @@
 // bitcask.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include "MyUtils\DebugMode.h"
 #include <iostream>
 #include "bitcask.h"
 
+
+#ifndef DEBUG
+
 int main()
 {
-	bitcask a;
-//	std::cout << getCurrentOfFormat("%F %T")<< std::endl;
 	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+#else
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+#include<thread>
+#include"MyUtils\myutils.h"
 
+
+void TestPut() {
+	static bitcask a;
+
+	const int circleTimes = 10;
+	for (int i = 0; i < circleTimes; i++) {
+		auto key = getRandStr(8);
+		auto value = getRandStr(40);
+		a.put(key, value);
+	}
+	return;
+}
+
+
+int main()
+{
+	//test multi-thread put
+	const int threadCount= 5;
+	std::thread p[threadCount];
+
+	for (int i = 0; i < threadCount; i++) {
+		std::thread a(TestPut);
+		p[i] = std::move(a);
+	}
+	for (int i = 0; i < threadCount; i++) {
+		p[i].join();
+	}
+	return 0;
+}
+
+#endif // DEBUG

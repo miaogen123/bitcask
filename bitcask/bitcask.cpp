@@ -21,7 +21,9 @@ int bitcask::put(std::string key, std::string value){
 	auto timestamp = getCurrentOfFormat("%F %T");
 	auto keySize = std::to_string(key.size());
 	auto valueSize = std::to_string(value.size());
+	while (writeFlag.test_and_set());
 	fileToLog << timestamp + " " + keySize + " " + valueSize + " " + key + " " + value << std::endl;
+	writeFlag.clear(); 
 	return true;
 }
 
@@ -33,4 +35,5 @@ int bitcask::del(std::string key)
 
 bitcask::~bitcask()
 {
+	fileToLog.close();
 }
