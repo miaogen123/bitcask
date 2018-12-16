@@ -1,4 +1,8 @@
-#include"../pch.h"
+#ifdef _WIN32
+	#include"..\pch.h"
+#elif __linux__
+	#include"../pch.h"
+#endif
 #include"timeRela.h"
 #include<time.h>
 #include<sstream>

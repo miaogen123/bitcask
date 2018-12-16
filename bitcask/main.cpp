@@ -1,7 +1,13 @@
 // bitcask.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "MyUtils\DebugMode.h"
+#ifdef _WIN32
+	#include "MyUtils\DebugMode.h"
+	#include "MyUtils\myutils.h"
+#elif __linux__
+	#include "MyUtils/DebugMode.h"
+	#include "MyUtils/myutils.h"
+#endif
 #include <iostream>
 #include "bitcask.h"
 
@@ -16,7 +22,6 @@ int main()
 #else
 
 #include<thread>
-#include "MyUtils\myutils.h"
 
 
 void TestPut() {

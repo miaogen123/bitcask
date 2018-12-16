@@ -1,7 +1,15 @@
 #include <iostream>
-#include "MyUtils\hash.h"
 #include "bitcask.h"
-#include "MyUtils\timeRela.h"
+#ifdef _WIN32
+	#include "MyUtils\hash.h"
+	#include "MyUtils\timeRela.h"
+#elif __linux__
+	#include "MyUtils/hash.h"
+	#include "MyUtils/timeRela.h"
+#endif
+
+
+
 
 bitcask::bitcask(){
 	//TODO::重建索引表

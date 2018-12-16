@@ -1,0 +1,34 @@
+language: cpp
+branches:
+  only:
+    - master
+dist: trusty
+ # works on Precise and Trusty
+sudo: required
+script:
+  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  - gcc --version
+  - cd bitcask/ && g++ *.cpp MyUtils/*.cpp -o main -lpthread -std=c++11 &&echo "building finished"
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-6
+      - g++-6
+os: 
+  - linux
+#- addons:
+#  apt:
+#    sources:
+#      - ubuntu-toolchain-r-test
+#    packages:
+#      - g++-7
+compiler:
+  - gcc
+notifications:
+  email: false
+ 
+  
+    
