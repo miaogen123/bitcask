@@ -16,13 +16,13 @@ int main()
 #else
 
 #include<thread>
-#include"MyUtils\myutils.h"
+#include "MyUtils\myutils.h"
 
 
 void TestPut() {
 	static bitcask a;
 
-	const int circleTimes = 10;
+	const int circleTimes = 1000;
 	for (int i = 0; i < circleTimes; i++) {
 		auto key = getRandStr(8);
 		auto value = getRandStr(40);
@@ -35,7 +35,7 @@ void TestPut() {
 int main()
 {
 	//test multi-thread put
-	const int threadCount= 5;
+	const int threadCount= 1;
 	std::thread p[threadCount];
 
 	for (int i = 0; i < threadCount; i++) {
